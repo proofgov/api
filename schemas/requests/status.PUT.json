@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "id": "http://app.addproof.com/schemas/forms/status.json",
+  "title":       "Status of a user submissions",
+  "description": "Applications starts with status 'in progress'; set it's value to 'submitted' once the user has submitted the form; this indicates that no further edits will be made",
+  "type":  "object",
+  "properties": {
+    "value": {
+      "type": "string",
+      "pattern": "^(in progress|submitted)$",
+    },
+    "required": ["value"]
+  },
+}

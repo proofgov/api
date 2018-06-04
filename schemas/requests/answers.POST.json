@@ -1,0 +1,52 @@
+{
+  "title": "Answers to some questions",
+  "description": "Possibly a partial form submission, possibly a complete form submission",
+  "type": "array",
+  "items": {
+    "type": {
+      "allOf": [
+        "field",
+        { "oneOf": [ "field", "choices" ]},
+      ],
+    }"object",
+    "properties": {
+      "field_id":   "string",
+      "field_type": {
+        "type": "string",
+        "pattern": "^(number|currency|text|choices|table\\[\\d\\]|file_ref)$"
+      },
+      "prompting_text": {
+        "oneOf": [
+          {"type": "string"},
+          {"type": "array", "items": { "type": "string" } }
+        ]
+      },
+      "required": [ "field_id", "field_type", "prompting_text", "value" ]
+    },
+  },
+
+  "definitions": {
+    "choices": {
+      "title": "Multiple choice or multi-select questions",
+      "type": "object",
+      "properties": {
+        "field_type": {
+          "type":"string",
+          "pattern": "^choices$",
+        },
+        "choices": {
+          "type":"array",
+          "items":"string"
+        }
+      },
+      "required": [ "choices" ],
+    },
+    "file_ref": {
+      "title": "Prompts requiring a user to upload a file",
+      "properties": {
+        "type": "string",
+        "pattern": "^file_ref$",
+      }
+    }
+  },
+}
