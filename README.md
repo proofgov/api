@@ -66,7 +66,19 @@ example response:
 }
 ```
 
-* POSTs to this end-point will record new answers for that session.
+POSTs to this end-point will record new answers for that session. An answer specifies at least
+
+* a field id
+* a field type
+* a prompting text
+* a value
+
+Some other properties will also be added for certain field_type (e.g. if it's a multiple-choice or multi-select question, the other choices should be specified).
+
+An explicit goal of this API is to minimize the amount of coordination between the front and back office systems for forms that do not require user-specific validation of entries. By allowing the front-office facing form to push prompting text, this enables agility between the two systems.
+
+It is of course redundant for this prompting text to be submitted with each submission by a user (once a form goes live, it is unlikely to receive regular revisions). This redundancy can be factored out in a later stage (e.g. by exposing a /forms/:form_slug/fields endpoint or by exposing a /field-details endpoint on the citizen-facing system)
+
 
 example request
 
@@ -126,14 +138,15 @@ Notes:
   * Clients should select field-ids that identify a question within a form and use the same id consistent when answers to that question are provided from different sessions.
   * A client is not restricted from changing an answer to a question - if the same field id appears across multiple POST requests, the last one processed will be treated as the answer submitted by the user.
   * Fields have a type which should not change. If multiple types are submitted for the same field id - even across different sessions - the server may return 422 (conflict).
+  * We envision files handling may entirely be handled by the `/files` endpoint. If there is a need to provide more form context than a descriptive filename, clients may choose to use the the `file_ref` field type, which allows them to specify the mapping between a form prompt and a _previously uploaded file_.
 
 ## /sessions/:session-id/metadata
 
-Endpoint available for a client to update user browser metadata beyond initial session establishment. It is expected, though not an explicit pre-condition for any part of the system, that user's session will occur in a single browser
+Endpoint available for a client to update user browser metadata beyond initial session establishment. It is expected, though not an explicit pre-condition for any part of the system, that user's session will occur in a single browser.
 
 ## /sessions/:session-id/files
 
-Endpoint for uploading files to an application.
+Endpoint for uploading files to an application. We encourage the eServices form to treat this API as a storage system and have the user's browser upload files directly to this endpoint (rather than re-transmitting the file).
 
 ## /sessions/:session-id/status
 
