@@ -1,22 +1,22 @@
 # Context
 
-There is a need to schedule a demo, for the PLRA team, of the investment in overhauling the PLRA system. For this demo, the team wants to see the form built by Kellett and e-Services with the back-office piece built by Proof, so these components need to be integrated
+There is a need to schedule a demo, for the PLRA team, of the investment in overhauling the PLRA system. For this demo, the team wants to see the form built by Kellett and e-Services integrated with the application storage and management management system built by Proof.
 
-What follows is a rough specification for the application submission endpoint of Proof's PLRA back-office application storage and processing system that will be made available to the Kellett team to integrate their LPN application form. This proposal is advanced with the immediate goal of integrating the LPN prototype form, built by Kellett, with the back-office application processing system built by Proof, but, moving to a slightly more abstract setting lets us stay agile as we can focus on the details of shared concern. Lee O'Mara has presented a draft integration guide which concerns integration concerns additional to the ones addressed here (e.g. integration of the LPN application form with a payment system). This proposal builds upon that proposal, while proposal some changes with regards to schematization of the data exchanged between front and back-office systems.
+What follows is an outline of the application submission API of Proof's system. This API was created with the immediate goal of integrating the LPN prototype form, built by Kellett, with the back-office application processing system built by Proof, but, staying at a certain level of abstraction (there are few mentions of LPN in this document) to remain agile, understanding this is one of many forms, to retain focus on the shared concerns. Lee O'Mara has presented a draft integration guide which concerns integration concerns additional to the ones addressed here (e.g. integration of the LPN application form with a payment system). This spec builds upon that proposal, with the content here focussed on schematization of the data exchanged between front and back-office systems.
 
 # Overview
 
 We see a citizen-facing form as presenting a user with series of questions (prompts) and collects answers as well as some metadata (i.e. IP of submitter, browser, OS, etc.). This data - the prompts presented to a user, the answers a user gave to a prompt, and metadata - must be communicated to a back-office system. The protocol and structure of this interaction is the primary subject of this document.
 
-This API is designed so that the form structure - # of questions, prompting text, variation of possible answers - need not be fixed a priori. The intention here is to eliminate unnecessary coordination and coupling between these systems, allowing greater flexibility for both systems. We understand that coordination around some parts of a form will be necessary as, in the future and with more sophisticated forms, some validation of user input based on, say, a user's past applications may be necessary involving the database, and this is a part of the design and roadmap for this API, but we avoid the need for this today. We'll spend some time discussing the details of such an extension in a later section.
+This API is designed so that form structure - # of questions, prompting text, variation of possible answers - may be modified over an integration lifetime. The intention is to give flexibility to the designers of both front- and back-office systems by reducing unneccessary coordination and coupling. We understand that coordination around some certain questions will be necessary in some cases (i.e. it is envisioned that more sophisticated forms may need to validate a user's current input against past applications) and we see this as easy within this setup; we'll spend some time discussing the details of such an extension in a later section.
 
-Our API is a RESTful JSON API that may be interacted with via HTTPS. Authentication will happen via bearer token to be provided in the header of any request; the token will be communicated out of band (we defer use of AD service accounts to a later phase; we believe this will accelerate the current integration, which, as we understand, is being undertaken only to be able to demo the work to date to the entirety of the PLRA team).
+Our API is a RESTful JSON API that may be interacted with via HTTPS. Authentication will be done via bearer token to be provided via a header (X-Auth) of any request; the token will be communicated out of band; we defer use of AD service accounts to a later phase. We envision a future where clients of the front-office system may submit directly to the back-office system using a session-specific secret, but we defer this to a later phase.
 
 The end-points for the API are:
 
 1. /forms/LPN-new-application/sessions                      (POST here when a new session starts)
 2. /forms/LPN-new-application/sessions/:session-id/answers  (POST here as new data is submitted)
-3. /forms/LPN-new-application/sessions/:session-id/files    (POST here when files are uploaded; direct posts from the client box are encouraged)
+3. /forms/LPN-new-application/sessions/:session-id/files    (POST here when files are uploaded; direct posts from the client box to be supported in a future release)
 4. /forms/LPN-new-application/sessions/:session-id/metadata (POST here if new client browser metadata is collected over session life)
 5. /forms/LPN-new-application/sessions/:session-id/status   (PUT here when completed)
 
@@ -27,6 +27,12 @@ The end-points for the API are:
 3. The client PUTs /sessions/:session-id/status with '{ "value": "complete" }' when the client clicks submit.
 
 We also permit the client to assemble all data and submit it with a single POST to /sessions upon form completion (but encourage the adoption of the more incremental session application)
+
+## Planned extensions
+
+* support authentication via AD service accounts
+* generate a per-session bearer token to accept posts directly from a client box
+* create more flexibility around communicating field types and prompts (e.g. create a /forms/:form_id/:fields endpoint to manage fields for the form, rather than repeating this at each user submission)
 
 # Comprehensive end-point list + JSON Schema
 
@@ -95,20 +101,18 @@ example request
     "field_type": "choices",
     "prompt": "Have you worked as a nurse in the last 10 years?",
     "value": "No I have not",
-    "choices": {
-      "prompts": [
-        "Yes I have",
-        "No I have not"
-      ],
-    },
+    "choices": [
+      "Yes I have",
+      "No I have not",
+    ],
   },
   {
     "field_id":   "n7FYOGpx36D4",
-    "field_type": "table[6]",
+    "field_type": "table[7]",
     "prompt": [
       "Please enter the details of your recent employers",
-      "Table headers: name of business, business phone #, supervisor name, supervisor phone #, supervisor email, start date, end date"
     ],
+    "headings": [ "name of business", "business phone #", "supervisor name", "supervisor phone #", "supervisor email", "start date", "end date" ],
     "value": [
       [
         "Victoria General Hospital",
@@ -146,7 +150,19 @@ Endpoint available for a client to update user browser metadata beyond initial s
 
 ## /sessions/:session-id/files
 
-Endpoint for uploading files to an application. We encourage the eServices form to treat this API as a storage system and have the user's browser upload files directly to this endpoint (rather than re-transmitting the file).
+Endpoint for uploading files to an application. We support typical form uploads (i.e. Content-Type: multipart/form-data), as well as supporting JSON posts with the schema
+
+```
+{
+  type: 'object',
+  properties: {
+    filename: { type: 'string' },
+    file_mime: { type: 'string'},
+    file_data: { type: 'string', description: 'base64 encoding of filedata'},
+  }
+  required: [ 'filename', 'file_data', 'file_mime' ]
+}
+```
 
 ## /sessions/:session-id/status
 
