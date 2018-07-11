@@ -40,7 +40,7 @@ This section gives more details on the various endpoints of the API. Schema for 
 
 1. /forms/LPN-new-application/sessions                      (POST here when a new session starts)
 2. /forms/LPN-new-application/sessions/:session-id/answers  (POST here as new data is submitted)
-3. /forms/LPN-new-application/sessions/:session-id/files    (POST here when files are uploaded; direct posts from the client box are encouraged)
+3. /forms/LPN-new-application/sessions/:session-id/files    (POST here when files are uploaded)
 4. /forms/LPN-new-application/sessions/:session-id/metadata (POST here if new client browser metadata is collected over session life)
 5. /forms/LPN-new-application/sessions/:session-id/status   (PUT here when completed)
 
