@@ -81,7 +81,7 @@ POSTs to this end-point will record new answers for that session. An answer spec
 
 Some other properties will also be added for certain field_type (e.g. if it's a multiple-choice or multi-select question, the other choices should be specified).
 
-An explicit goal of this API is to minimize the amount of coordination between the front and back office systems for forms that do not require user-specific validation of entries. By allowing the front-office facing form to push prompting text, this enables agility between the two systems.
+An explicit goal of this API is to minimize coordination between front and back office systems for forms requiring no user-specific validation. By allowing the front-office facing form to push prompting text, we free the front-office system to iterate on form design and even post launch and things should "just work".
 
 It is of course redundant for this prompting text to be submitted with each submission by a user (once a form goes live, it is unlikely to receive regular revisions). This redundancy can be factored out in a later stage (e.g. by exposing a /forms/:form_slug/fields endpoint or by exposing a /field-details endpoint on the citizen-facing system)
 
@@ -162,6 +162,32 @@ Endpoint for uploading files to an application. We support typical form uploads 
   }
   required: [ 'filename', 'file_data', 'file_mime' ]
 }
+```
+
+The response to this end point will satisfy the following schema:
+
+```
+{
+  type: 'object',
+  properties: {
+    file: {
+      type: 'object',
+      required: [ "id" ],
+    }
+  }
+}
+```
+
+The returned id may be used as the value of an answer of type file_ref to give more context on the uploaded file, e.g.
+```
+[
+  {
+    field_id: "government-id",
+    field_type: "file_ref",
+    prompt: "Please upload a copy of your government id",
+    value: 14,
+  },
+]
 ```
 
 ## /sessions/:session-id/status
