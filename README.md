@@ -109,9 +109,7 @@ example request
   {
     "field_id":   "n7FYOGpx36D4",
     "field_type": "table[7]",
-    "prompt": [
-      "Please enter the details of your recent employers",
-    ],
+    "prompt": "Please enter the details of your recent employers",
     "headings": [ "name of business", "business phone #", "supervisor name", "supervisor phone #", "supervisor email", "start date", "end date" ],
     "value": [
       [
