@@ -1,9 +1,3 @@
-# Context
-
-There is a need to schedule a demo, for the PLRA team, of the investment in overhauling the PLRA system. For this demo, the team wants to see the form built by Kellett and e-Services integrated with the application storage and management management system built by Proof.
-
-What follows is an outline of the application submission API of Proof's system. This API was created with the immediate goal of integrating the LPN prototype form, built by Kellett, with the back-office application processing system built by Proof, but, staying at a certain level of abstraction (there are few mentions of LPN in this document) to remain agile, understanding this is one of many forms, to retain focus on the shared concerns. Lee O'Mara has presented a draft integration guide which concerns integration concerns additional to the ones addressed here (e.g. integration of the LPN application form with a payment system). This spec builds upon that proposal, with the content here focussed on schematization of the data exchanged between front and back-office systems.
-
 # Overview
 
 We see a citizen-facing form as presenting a user with series of questions (prompts) and collects answers as well as some metadata (i.e. IP of submitter, browser, OS, etc.). This data - the prompts presented to a user, the answers a user gave to a prompt, and metadata - must be communicated to a back-office system. The protocol and structure of this interaction is the primary subject of this document.
@@ -18,7 +12,7 @@ The end-points for the API are:
 2. /forms/LPN-new-application/sessions/:session-id/answers  (POST here as new data is submitted)
 3. /forms/LPN-new-application/sessions/:session-id/files    (POST here when files are uploaded; direct posts from the client box to be supported in a future release)
 4. /forms/LPN-new-application/sessions/:session-id/metadata (POST here if new client browser metadata is collected over session life)
-5. /forms/LPN-new-application/sessions/:session-id/status   (PUT here when completed)
+5. /forms/LPN-new-application/sessions/:session-id/status   (PUT here to signal user's submission)
 
 ## Example work-flow
 
@@ -42,7 +36,7 @@ This section gives more details on the various endpoints of the API. Schema for 
 2. /forms/LPN-new-application/sessions/:session-id/answers  (POST here as new data is submitted)
 3. /forms/LPN-new-application/sessions/:session-id/files    (POST here when files are uploaded)
 4. /forms/LPN-new-application/sessions/:session-id/metadata (POST here if new client browser metadata is collected over session life)
-5. /forms/LPN-new-application/sessions/:session-id/status   (PUT here when completed)
+5. /forms/LPN-new-application/sessions/:session-id/status   (PUT here to signal user's submission)
 
 All the endpoints in this section will be mounted at a prefix like /forms/LPN-new-application. JSON received and served in production will be validated according to the following schema documents:
 
