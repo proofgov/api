@@ -8,11 +8,11 @@ Our API is a RESTful JSON API that may be interacted with via HTTPS. Authenticat
 
 The end-points for the API are:
 
-1. /forms/LPN-new-application/sessions                      (POST here when a new session starts)
-2. /forms/LPN-new-application/sessions/:session-id/answers  (POST here as new data is submitted)
-3. /forms/LPN-new-application/sessions/:session-id/files    (POST here when files are uploaded; direct posts from the client box to be supported in a future release)
-4. /forms/LPN-new-application/sessions/:session-id/metadata (POST here if new client browser metadata is collected over session life)
-5. /forms/LPN-new-application/sessions/:session-id/status   (PUT here to signal user's submission)
+1. /forms/:form_slug/sessions                      (POST here when a new session starts)
+2. /forms/:form_slug/sessions/:session-id/answers  (POST here as new data is submitted)
+3. /forms/:form_slug/sessions/:session-id/files    (POST here when files are uploaded; direct posts from the client box to be supported in a future release)
+4. /forms/:form_slug/sessions/:session-id/metadata (POST here if new client browser metadata is collected over session life)
+5. /forms/:form_slug/sessions/:session-id/status   (PUT here to signal user's submission)
 
 ## Example work-flow
 
@@ -24,7 +24,6 @@ We also permit the client to assemble all data and submit it with a single POST 
 
 ## Planned extensions
 
-* support authentication via AD service accounts
 * generate a per-session bearer token to accept posts directly from a client box
 * create more flexibility around communicating field types and prompts (e.g. create a /forms/:form_id/:fields endpoint to manage fields for the form, rather than repeating this at each user submission)
 
@@ -32,11 +31,11 @@ We also permit the client to assemble all data and submit it with a single POST 
 
 This section gives more details on the various endpoints of the API. Schema for requests and responses, when they exist, are found in the /schemas folder. Again, the list of API end-points is as follows:
 
-1. /forms/LPN-new-application/sessions                      (POST here when a new session starts)
-2. /forms/LPN-new-application/sessions/:session-id/answers  (POST here as new data is submitted)
-3. /forms/LPN-new-application/sessions/:session-id/files    (POST here when files are uploaded)
-4. /forms/LPN-new-application/sessions/:session-id/metadata (POST here if new client browser metadata is collected over session life)
-5. /forms/LPN-new-application/sessions/:session-id/status   (PUT here to signal user's submission)
+1. /forms/:form_slug/sessions                      (POST here when a new session starts)
+2. /forms/:form_slug/sessions/:session-id/answers  (POST here as new data is submitted)
+3. /forms/:form_slug/sessions/:session-id/files    (POST here when files are uploaded)
+4. /forms/:form_slug/sessions/:session-id/metadata (POST here if new client browser metadata is collected over session life)
+5. /forms/:form_slug/sessions/:session-id/status   (PUT here to signal user's submission)
 
 All the endpoints in this section will be mounted at a prefix like /forms/LPN-new-application. JSON received and served in production will be validated according to the following schema documents:
 
@@ -200,7 +199,7 @@ This API draws considerable inspiration from the API for [Typeform](typeform.com
 2. Douglas is applying to renew his nursing license. His account is owing due to some past fines or problems with book-keeping, so the amount of money paid during registration is hire.
 
 ## Precondition: User-Authentication 
-Coordination, such as the example above, presumes that the front-office systems knows the identity of the user at the other end of a session, which is user authentication. A YG-wide implementation of such browser-based user authentication is a roadmap item for ICT. From the perspective of this author, this item is not slated for deliver in the immediate future (time of writing is June 4th, 2018).
+Coordination, such as the example above, presumes that the front-office systems knows the identity of the user at the other end of a session, which is user authentication.
 
 ## Example Accomodation
 
