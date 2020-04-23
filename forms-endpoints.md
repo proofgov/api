@@ -1,13 +1,30 @@
 # Forms Endpoints
 
-* /forms/:provider/submit
-* /forms/:provider/:form_config_id/debug/submit
+* POST /forms/drupal-webform/submit
+* POST /forms/drupal-webform/:form_config_id/submit <- doesn't exist yet, but should
 
-* /api/forms/:provider/:form_config_id/schemata
+* POST /forms/form-hero/submit <- this form is particularly convenient for us for wiring up forms
 
-### Submission debug endpoint
+* POST /forms/drupal-webform/:form_config_id/debug/submit
 
-## example response
+* POST /api/forms/drupal-webform/:form_config_id/schemata
+
+## Submission debug endpoint
+
+* Has same auth setup as submit endpoint (i.e. no auth - open)
+* Does _not_ persist submissions
+* Response codes
+  - 200 when does a match
+  - would 404 if the form_config wasn't found
+
+* Expects the same body format as the submit endpoint
+* Returns, in response
+  - what schema version we're matching against
+  - what are all the question/bindings we know about
+  - given the body you submitted, what matched
+  - (we're not explicitly telling you what didn't match)
+
+### example response
 
 ```
 {
@@ -600,8 +617,16 @@
 }
 ```
 
-
 ## Schemata Set
+
+* POST /api/forms/drupal-webform/:form_config_id/schemata
+
+* This _is_ authenticated
+* Request body
+  - must contain schema
+  - _may_ contain version (will default to current unix time)
+* Only accepts JSON today (could accept YAML)
+
 
 ```
 curl --location --request POST 'localhost:3000/api/forms/drupal-webform/1/schemata' \
