@@ -605,7 +605,7 @@
 
 ```
 curl --location --request POST 'localhost:3000/api/forms/drupal-webform/1/schemata' \
---header 'Authorization: Bearer $PROOF_API_TOKEN' \
+--header "Authorization: Bearer $PROOF_API_TOKEN" \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "version": "v1",
