@@ -70,6 +70,9 @@ components:
           type: integer
         content:
           type: array
+          description: |
+            This is normalized response data.
+            Familiarity with the form schema will be needed to interpret certain questions.
           items:
             type: object
             additionalProperties:
