@@ -49,7 +49,21 @@ paths:
                 items:
                   $ref: '#/components/schemas/FormSubmission'
         '400':
-          description: malformed input
+          description: |
+            Malformed filters
+            (Do your filter parameters reference real attributes on the form?)
+        '401':
+          description: |
+            authentication failure
+            (Are you presenting a valid token and formatted correctly in the header?)
+        '403':
+          description: |
+            Authorization failure
+            (Your token was recognized, but you do not have rights to retrieve submissions for this form)
+        '404':
+          description: |
+            Form not found.
+            (Not to be confused with no matching submissions)
 
 servers:
   - url: https://app.proofgov.com/v1/api
