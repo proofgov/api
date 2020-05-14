@@ -1,21 +1,21 @@
-# Proof's API document
+# Proof's API documentation
 
 ## Requirements
-All requests must contain three headers:
+All requests must contain headers:
 * `Authorization: Bearer {PROOF PROVIDED API TOKEN}`
 * `Accept: application/json`
 * `Content-Type: application/json`
 
-**Notes**
+## Notes
 
-1. In this documentation, anywhere you see `${API_TOKEN}` it refers to the token provided by Proof for your integration.
-2. We use ${API_HOST} to refer to the hostname of the Proof instance to interact with. For most users, this will be app.proofgov.com. For users of special single-tenant installs, this should is whatever hostname you would visit in your browser (e.g. trac.ynet.gov.yk.ca).
+1. In this documentation, `${API_TOKEN}` is meant to refer to the token provided by Proof for your integration.
+2. We use `${API_HOST}` to refer to the hostname of the Proof instance you're meaning to interact with. For most users, this will be app.proofgov.com. For users of special single-tenant installs, this should the hostname you would visit in your browser (e.g. trac.ynet.gov.yk.ca).
 
-In both cases, we're writing these like interpolated shell variables to facilitate copying and pasting these snippets directly into a shell session.
+In both cases, we're writing these as interpolated shell variables to facilitate copying and pasting snippets directly into a shell session.
 
-### Formatting of data
-#### Dates
-All dates sent to and returned from the system will be using `YYYY-MM-DD` format.
+## Formatting
+### Dates
+All dates sent to and returned from the system will be formatted as `YYYY-MM-DD`.
 
 ## Endpoints
 

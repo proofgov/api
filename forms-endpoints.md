@@ -625,8 +625,8 @@
 * Request body
   - must contain schema
   - _may_ contain version (will default to current unix time)
-* Only accepts JSON today (could accept YAML)
 
+* Only accepts JSON today (could accept YAML)
 
 ```
 curl --location --request POST 'localhost:3000/api/forms/drupal-webform/1/schemata' \
