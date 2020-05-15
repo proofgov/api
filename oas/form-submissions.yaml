@@ -66,8 +66,8 @@ paths:
             (Not to be confused with no matching submissions)
 
 servers:
-  - url: https://app.proofgov.com/v1/api
-  - url: https://trac.ynet.gov.yk.ca/v1/api
+  - url: https://app.proofgov.com/api
+  - url: https://trac.ynet.gov.yk.ca/api
 
 components:
   schemas:
