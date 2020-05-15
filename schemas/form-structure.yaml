@@ -1,0 +1,109 @@
+title: Proof Form Structure
+description: |
+  How the union of all questions and answer type-checking of a form is represented
+  in Proof's form management systems.
+type: object
+properties:
+  id:
+    type: string
+  uuid:
+    type: string
+    description: |
+      To support duplication detection if configuring forms from many systems.
+  title:
+    type: string
+  created_at:
+    type: string
+  sections:
+    title: form sections
+    type: array
+    minItems: 1
+    items:
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        fields:
+          title: section fields
+          type: array
+          minItems: 1
+          items:
+            allOf:
+            - title: Field Values
+              type: object
+              properties:
+                id:
+                  type: string
+                binding:
+                  type: string
+                label:
+                  type: string
+              required:
+              - binding
+              - label
+              - type
+            - oneOf:
+              - title: Text type
+                properties:
+                  type:
+                    type: string
+                    pattern: "^(text|long-text|string)?$"
+                additionalProperties:
+                  type: string
+              - title: Date and DateTime types
+                properties:
+                  type:
+                    type: string
+                    pattern: "^(date|datetime)?$"
+                additionalProperties:
+                  type: string
+              - title: Number type
+                properties:
+                  type:
+                    type: string
+                    pattern: "^number$"
+                additionalProperties:
+                  type: string
+              - title: Dropdown type
+                properties:
+                  type:
+                    type: string
+                    pattern: "^(dropdown|multicheck)?$"
+                  choices:
+                    type: array
+                    minItems: 1
+                    items:
+                      type: object
+                      properties:
+                        label:
+                          type: string
+                        value:
+                          anyOf:
+                          - type: boolean
+                          - type: number
+                          - type: string
+                additionalProperties:
+                  type: string
+              - title: Email type
+                properties:
+                  type:
+                    type: string
+                    pattern: e-mail
+              - title: HTML type
+                properties:
+                  type:
+                    type: string
+                    pattern: html
+                  markup:
+                    type: string
+              - title: File Upload type
+                properties:
+                  type:
+                    type: string
+                    pattern: "^file$"
+    required:
+    - fields
+required:
+- sections
