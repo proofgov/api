@@ -1,0 +1,105 @@
+openapi: 3.0.3
+info:
+  title: Form Submissions API
+  version: "1.0.0"
+  description: |
+    API endpoints to access Form Submissions
+  contact:
+    email: tech@proofgov.com
+  license:
+    name: Proof
+    url: 'https://proofgov.com/termsandconditions'
+
+paths:
+  /forms/{formId}/submissions:
+    get:
+      summary: Get a list of submissions for a particular form
+      parameters:
+        - in: path
+          name: formId
+          description: |
+            The ID of the particular form.
+          schema:
+            type: integer
+          required: true
+        - in: query
+          name: filters
+          description: |
+            Any filters to apply to result set before returning
+            (e.g. binding X = Y)
+          required: false
+          schema:
+            type: array
+            items:
+              type: object
+              additionalProperties:
+                anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+          style: deepObject
+          explode: true
+      responses:
+        '200':
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FormSubmission'
+        '400':
+          description: |
+            Malformed filters
+            (Do your filter parameters reference real attributes on the form?)
+        '401':
+          description: |
+            authentication failure
+            (Are you presenting a valid token and formatted correctly in the header?)
+        '403':
+          description: |
+            Authorization failure
+            (Your token was recognized, but you do not have rights to retrieve submissions for this form)
+        '404':
+          description: |
+            Form not found.
+            (Not to be confused with no matching submissions)
+
+servers:
+  - url: https://app.proofgov.com/api
+  - url: https://trac.ynet.gov.yk.ca/api
+
+components:
+  schemas:
+    FormSubmission:
+      type: object
+      required:
+        - id
+        - formId
+        - content
+      properties:
+        id:
+          type: integer
+        formId:
+          type: integer
+        content:
+          type: array
+          description: |
+            This is normalized response data.
+            Familiarity with the form schema will be needed to interpret certain questions.
+          items:
+            type: object
+            additionalProperties:
+              anyOf:
+                - type: string
+                - type: number
+                - type: boolean
+
+  securitySchemes:
+    bearerAuth: # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+
+# Everything in this API requires Bearer Auth
+security:
+  - bearerAuth: [] 
