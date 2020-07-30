@@ -1,10 +1,19 @@
-# Proof's API documentation
+# Proof's REST/HTTP/JSON API documentation
 
 ## Requirements
-All requests must contain headers:
-* `Authorization: Bearer {PROOF PROVIDED API TOKEN}`
-* `Accept: application/json`
-* `Content-Type: application/json`
+
+Readers of this document will need to have
+* an account at an instance of the Proof platform (e.g. app.proofgov.com)
+* an API token for that account.
+
+
+## Example Applications
+
+### Concerning Form Submissions
+
+* [A basic example, downsampling implements some custom access control](https://github.com/proofgov/example-form-query-api)
+* [A rate-limiting application](https://github.com/proofgov/eccc-on-site-access)
+
 
 ## Notes
 
@@ -13,12 +22,19 @@ All requests must contain headers:
 
 In both cases, we're writing these as interpolated shell variables to facilitate copying and pasting snippets directly into a shell session.
 
-## Formatting
-### Dates
-All dates sent to and returned from the system will be formatted as `YYYY-MM-DD`.
 
 ## Endpoints
 
 * [Users](users-endpoint.md)
 * [Routings](routings-endpoint.md)
 * [Forms](forms-endpoints.md)
+
+### Common requirements for all endpoints
+All requests must contain headers:
+* `Authorization: Bearer {PROOF PROVIDED API TOKEN}`
+* `Accept: application/json`
+* `Content-Type: application/json`
+
+#### Formatting
+##### Dates
+All dates sent to and returned from the system will be formatted as `YYYY-MM-DD`.
