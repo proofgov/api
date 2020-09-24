@@ -12,7 +12,7 @@ Readers of this document will need to have
 ### Concerning Form Submissions
 
 * [A basic example, downsampling implements some custom access control](https://github.com/proofgov/example-form-query-api)
-* [A rate-limiting application](https://github.com/proofgov/eccc-on-site-access)
+* [A rate-limiting application](https://github.com/proofgov/example-app-capacity-management)
 
 
 ## Notes
