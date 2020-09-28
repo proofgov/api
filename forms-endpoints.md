@@ -1,5 +1,12 @@
-# Forms Endpoints
+Endpoints:
 
+- [Submit a form](#submit-a-form)
+- [Form submission data](#form-submission-data)
+- [Submission debug endpoint](#submission-debug-endpoint)
+
+[Example Response](#example-response)
+
+## Submit a form 
 * POST /forms/drupal-webform/submit
 * POST /forms/drupal-webform/:form_config_id/submit <- doesn't exist yet, but should
 
@@ -9,7 +16,10 @@
 
 * POST /api/forms/drupal-webform/:form_config_id/schemata
 
+## Form Submission Data
+
 ## Submission debug endpoint
+
 
 * Has same auth setup as submit endpoint (i.e. no auth - open)
 * Does _not_ persist submissions
