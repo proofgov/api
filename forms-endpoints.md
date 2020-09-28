@@ -54,7 +54,7 @@ Supported query types:
 ###### Copy as cURL
 
 ``` shell
-curl -s -H "Authorization: Bearer $ACCESS_TOKEN" http://proof.ynet.gov.yk.ca/api/forms/4/submissions?per_page=500&filters%5Bofficeuse.Dateentry%5D%5Btype%5D=date&filters%5Bofficeuse.Dateentry%5D%5Bvalue%5D=2020-09-23&filters%5Bofficeuse.Dateentry%5D%5Bquery%5D=gt
+curl -s -H "Authorization: Bearer $ACCESS_TOKEN" http://https://app.proofgov.com/api/forms/121/submissions?per_page=500&filters%5Bofficeuse.Dateentry%5D%5Btype%5D=date&filters%5Bofficeuse.Dateentry%5D%5Bvalue%5D=2020-09-23&filters%5Bofficeuse.Dateentry%5D%5Bquery%5D=gt
 ```
 
 ## Submission debug endpoint
