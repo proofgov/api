@@ -1,22 +1,61 @@
+# Forms
 Endpoints:
 
-- [Submit a form](#submit-a-form)
-- [Form submission data](#form-submission-data)
-- [Submission debug endpoint](#submission-debug-endpoint)
+* [Submit a form](#submit-a-form)
+* [Form submission data](#form-submission-data)
+* [Submission debug endpoint](#submission-debug-endpoint)
 
 [Example Response](#example-response)
 
 ## Submit a form 
-* POST /forms/drupal-webform/submit
-* POST /forms/drupal-webform/:form_config_id/submit <- doesn't exist yet, but should
+* `POST /forms/drupal-webform/submit`
+* `POST /forms/drupal-webform/:form_config_id/submit` <- doesn't exist yet, but should
 
-* POST /forms/form-hero/submit <- this form is particularly convenient for us for wiring up forms
+* `POST /forms/form-hero/submit` <- this form is particularly convenient for us for wiring up forms
 
-* POST /forms/drupal-webform/:form_config_id/debug/submit
+* `POST /forms/drupal-webform/:form_config_id/debug/submit`
 
-* POST /api/forms/drupal-webform/:form_config_id/schemata
+* `POST /api/forms/drupal-webform/:form_config_id/schemata`
 
 ## Form Submission Data
+Work with data submitted via the form.
+
+* `GET forms/121/submissions` will return a paginated list of all the submission for the form configuration `121`
+
+See [form_configs](#) for a list of configured forms.
+
+_Optional query parameters_:
+ - page: page number to return
+ - per_page: number of results per page
+ - form data query parameters (see below)
+
+Form Data Query Parameters 
+'filters[email][query]': 'eq,
+'filters[email][value]': 'me@here.com',
+'filters[q1][type]': 'string',
+ 
+
+Supported query types: 
+ - starts_with
+ - ends_with
+ - ilike
+ - eq
+ - ne
+ - gt
+ - gte
+ - lt 
+ - lte 
+ - in
+ - between 
+ 
+ Currently default is starts_with (for most cases)
+
+
+###### Copy as cURL
+
+``` shell
+curl -s -H "Authorization: Bearer $ACCESS_TOKEN" http://proof.ynet.gov.yk.ca/api/forms/4/submissions?per_page=500&filters%5Bofficeuse.Dateentry%5D%5Btype%5D=date&filters%5Bofficeuse.Dateentry%5D%5Bvalue%5D=2020-09-23&filters%5Bofficeuse.Dateentry%5D%5Bquery%5D=gt
+```
 
 ## Submission debug endpoint
 
