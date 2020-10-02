@@ -1,16 +1,81 @@
-# Forms Endpoints
+# Forms
+Endpoints:
 
-* POST /forms/drupal-webform/submit
-* POST /forms/drupal-webform/:form_config_id/submit <- doesn't exist yet, but should
+* [Submit a form](#submit-a-form)
+* [Form submission data](#form-submission-data)
+* [Debug a submisson](#submission-debug-endpoint)
+    - [Example Response](#example-response)
 
-* POST /forms/form-hero/submit <- this form is particularly convenient for us for wiring up forms
 
-* POST /forms/drupal-webform/:form_config_id/debug/submit
 
-* POST /api/forms/drupal-webform/:form_config_id/schemata
+## Submit a form 
+* `POST /forms/drupal-webform/submit`
+* `POST /forms/drupal-webform/:form_config_id/submit` <- doesn't exist yet, but should
 
-## Submission debug endpoint
+* `POST /forms/form-hero/submit` <- this form is particularly convenient for us for wiring up forms
 
+
+## Form Submission Data
+Work with data submitted via the form.
+
+* `GET forms/121/submissions` will return a paginated list of all the submission for the form configuration `121`
+
+See [form_configs](#) for a list of configured forms.  The [submission debug endpoint](#submission-debug-endpoint) will return the schema of a form submission.
+
+__Optional query parameters:__
+ - _page:_ page number to return
+ - _per_page:_ number of results per page
+ - form data query parameters (see below)
+
+__Form Data Query Parameters__
+The API uses path parameters to filter results from submitted form data.  Each query parameter has three elements:
+* the type of query: `'filters[email][query]': 'eq`,
+* criteria to evaluate `'filters[email][value]': 'me@here.com'`,
+* the data type of the criteria `'filters[email][type]': 'string'`,
+ 
+
+__Supported Query Types:__  
+ - starts_with
+ - ends_with
+ - ilike
+ - eq
+ - ne
+ - gt
+ - gte
+ - lt 
+ - lte 
+ - in
+ - between 
+ 
+ Currently default is starts_with (for most cases)
+
+__Supported Data Type__
+_See the form schema for a details_
+
+```json 
+"email_address": {
+            "id": "email_address",
+            "cuid": "26e442c8-8a31-4d5f-887e-9c71c170c8a0",
+            "type": "string",
+            "label": "Email address",
+            "binding": "email_address"
+        },
+````
+
+###### Copy as cURL
+
+``` shell
+curl -s -H "Authorization: Bearer $ACCESS_TOKEN" http://https://app.proofgov.com/api/forms/121/submissions?per_page=500&filters%5Bofficeuse.Dateentry%5D%5Btype%5D=date&filters%5Bofficeuse.Dateentry%5D%5Bvalue%5D=2020-09-23&filters%5Bofficeuse.Dateentry%5D%5Bquery%5D=gt
+```
+
+## Debug a form
+
+* `POST /forms/drupal-webform/:form_config_id/debug/submit`
+
+* `POST /api/forms/drupal-webform/:form_config_id/schemata`
+
+
+__Notes:__
 * Has same auth setup as submit endpoint (i.e. no auth - open)
 * Does _not_ persist submissions
 * Response codes
