@@ -1,17 +1,59 @@
 # Forms
-Endpoints:
+
+## Glossary
+
+There are a number of entities that pertain to forms.
+
+* Configurations
+* Schemata
+* Submissions
+* Providers
+
+### Configurations
+A configuration is the highest-level construct. Submissions are posted against a configuration. Configurations also specify the automation that occurs when a form is submitted (e.g. who can see the submission; how the parent routing's data is popualted)
+
+Any form configuration has 1 provider.
+Any form configuration can have arbitrarily many schemata and submissions.
+
+### Schemata
+A submission identifies a version of the form (if only implicitly) and primarily contains the data of the form.
+
+Any version of a form has a schema. A form's schema identifies what questions are on that version of the form, what are their captions, as well as type information about the question (e.g. is this a drop-down). This is not used today for type-checking submission data when it arrives, rather it is used when displaying form submissions to end-users within the app. Readers may see the JSON schema of a form schema [here](schemas/form-structure.yaml).
+
+### Providers
+
+Of all form concepts, that of Provider will be least obvious
+
+A form's provider may be one of FormHero, Drupal or Proof. The provider layer allows for certain simplifications in retrieving schema, correlating schemas with submissions, and mapping schema's from a different form ecosystem into the proof ecosystem.
+
+For forms built on the [FormHero platform](formhero.io), submissions contain information which identifies not only which form the submission came from, but enough information to identify which version of the form was submitted. Because all forms and versions are cloud-hosted, the Proof application is able to call-out and retrieve the schema of a submission upon submission.
+
+For forms built using [Drupal's WebForm](https://www.drupal.org/project/webform), less automation is possible than the FormHero case (as there isn't a single, canonical domain will drupal webforms are hosted), but one can submit a schema as exported from Drupal, and it will be converted into Proof's internal schema format, the schema of which is [here](schemas/form-structure.yaml)
+
+
+## Endpoints
 
 * [Submit a form](#submit-a-form)
 * [Form submission data](#form-submission-data)
-* [Debug a submisson](#submission-debug-endpoint)
+* [Inspect a Schema](#inspect-a-schema)
+* [Debug a submission](#submission-debug-endpoint)
     - [Example Response](#example-response)
 
 
 
 ## Submit a form 
+
+Form submission endpoints take the form
+
+`/forms(/:provider)(/:form_config_id)/submit`
+
+At least one of `provider` or `form_config_id` must be present.
+If `provider` and `form_config_id` are set, they must match.
+
+### Examples: 
+
 * `POST /forms/drupal-webform/submit`
 * `POST /forms/drupal-webform/:form_config_id/submit` <- doesn't exist yet, but should
-
 * `POST /forms/form-hero/submit` <- this form is particularly convenient for us for wiring up forms
 
 
@@ -68,9 +110,22 @@ _See the form schema for a details_
 curl -s -H "Authorization: Bearer $ACCESS_TOKEN" http://https://app.proofgov.com/api/forms/121/submissions?per_page=500&filters%5Bofficeuse.Dateentry%5D%5Btype%5D=date&filters%5Bofficeuse.Dateentry%5D%5Bvalue%5D=2020-09-23&filters%5Bofficeuse.Dateentry%5D%5Bquery%5D=gt
 ```
 
+## Inspect a Schema
+
+API for schema support is evolving.
+
+Information on the latest schema for a form can be obtained by
+
+* taking the submit URL for the form
+* appending `/debug`
+* posting an empty JSON body to it.
+
+See the [Debug a form](#debug-a-form) section for more details.
+
+
 ## Debug a form
 
-* `POST /forms/drupal-webform/:form_config_id/debug/submit`
+* `POST /forms/drupal-webform/:form_config_id/submit/debug`
 
 * `POST /api/forms/drupal-webform/:form_config_id/schemata`
 

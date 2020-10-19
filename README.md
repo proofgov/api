@@ -6,7 +6,6 @@ Readers of this document will need to have
 * an account at an instance of the Proof platform (e.g. app.proofgov.com)
 * an API token for that account.
 
-
 ## Example Applications
 
 ### Concerning Form Submissions
@@ -29,11 +28,20 @@ In both cases, we're writing these as interpolated shell variables to facilitate
 * [Routings](routings-endpoint.md)
 * [Forms](forms-endpoints.md)
 
-### Common requirements for all endpoints
+### Common requirements
 All requests must contain headers:
 * `Authorization: Bearer {PROOF PROVIDED API TOKEN}`
 * `Accept: application/json`
 * `Content-Type: application/json`
+
+### Paging
+
+Endpoints that return multiple records will do so in pages.
+
+`page` and `per_page` are the control parameters.
+
+No more than 1k records will be returned on any request;
+larger values of `per_page` will be ignored
 
 #### Formatting
 ##### Dates
