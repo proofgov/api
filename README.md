@@ -10,9 +10,8 @@ Readers of this document will need to have
 
 ### Concerning Form Submissions
 
-* [A basic example, downsampling implements some custom access control](https://github.com/proofgov/example-form-query-api)
-* [A rate-limiting application](https://github.com/proofgov/example-app-capacity-management)
-
+- [A basic example, downsampling implements some custom access control](https://github.com/proofgov/example-form-query-api)
+- [A rate-limiting application](https://github.com/proofgov/example-app-capacity-management)
 
 ## Notes
 
@@ -21,18 +20,19 @@ Readers of this document will need to have
 
 In both cases, we're writing these as interpolated shell variables to facilitate copying and pasting snippets directly into a shell session.
 
-
 ## Endpoints
 
-* [Users](users-endpoint.md)
-* [Routings](routings-endpoint.md)
-* [Forms](forms-endpoints.md)
+- [Users](users-endpoint.md)
+- [Routings](routings-endpoint.md)
+- [Forms](forms-endpoints.md)
 
 ### Common requirements
+
 All requests must contain headers:
-* `Authorization: Bearer {PROOF PROVIDED API TOKEN}`
-* `Accept: application/json`
-* `Content-Type: application/json`
+
+- `Authorization: Bearer {PROOF PROVIDED API TOKEN}`
+- `Accept: application/json`
+- `Content-Type: application/json`
 
 ### Paging
 
@@ -44,5 +44,7 @@ No more than 1k records will be returned on any request;
 larger values of `per_page` will be ignored
 
 #### Formatting
+
 ##### Dates
+
 All dates sent to and returned from the system will be formatted as `YYYY-MM-DD`.
