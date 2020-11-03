@@ -3,8 +3,35 @@
 ## Requirements
 
 Readers of this document will need to have
-* an account at an instance of the Proof platform (e.g. app.proofgov.com)
-* an API token for that account.
+
+- an account at an instance of the Proof platform (e.g. app.proofgov.com)
+- a self-serve API token generated for that account.
+
+### API Token Generation
+
+1. Log into the app.
+2. Go to your profile page and enabled the Developer Tools option.
+3. Click on the Self-Serve API Token link under Developer Tools.
+
+To get a new a token, delete the old one and then go back to the self-serve link.
+
+1. Get the ID of the token you want to delete from the `/self-serve/api-token` endpoint.
+2. Perform a DELETE request with that ID to `/self-serve/api-tokens/<id>`
+   e.g.
+
+```bash
+API_TOKEN=6f7ad9f4fc06b73c2105cf1f3b5c287b02ff74a9c83b1a887cfbad04afa0f746
+API_TOKEN_ID_TO_DELETE=3
+
+curl \
+  -X DELETE \
+  "http://app.proofgov.com/self-serve/api-tokens/${API_TOKEN_ID_TO_DELETE}" \
+  -H "Accept: application/json" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer ${API_TOKEN}"
+```
+
+3. Repeate the initial self-serve token generation steps.
 
 ## Example Applications
 
