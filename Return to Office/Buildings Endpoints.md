@@ -1,18 +1,34 @@
 # Buildings Endpoints
 
+## General Setup
+
+All examples are using https://github.com/axios/axios#axios-api.
+```js
+axios = require('axios')
+PROOF_API_HOST = process.env.PROOF_API_HOST
+PROOF_API_TOKEN = process.env.PROOF_API_TOKEN
+```
+
 ## Fetch all Buildings
 This allows you to see all buildings in the system (that your user has access to).
 
-### Request
-```sh
-curl "https://${PROOF_API_HOST}/api/buildings" \
-     -H 'Accept: application/json' \
-     -H "Authorization: Bearer ${PROOF_API_TOKEN}" \
-     -H 'Content-Type: application/json'
+```js
+axios({
+	method: 'GET',
+	url: `${PROOF_API_HOST}/api/buildings`,
+	headers: {
+		'Accept': 'application/json',
+		'Authorization': `Bearer ${PROOF_API_TOKEN}`,
+		'Content-Type': 'application/json',
+	},
+}).then(response => console.log(JSON.stringify(response.data, null, 2)))
 ```
 
-### Response
+<details>
+  <summary>Server Response</summary>
+
 Status code `200` - OK
+
 ```json
 {
   "data": [
@@ -68,18 +84,27 @@ Status code `200` - OK
   "meta": {}
 }
 ```
+</details>
+
 
 ## Fetch a Specific Building
 Allows you to see details about a specific building (in particular policy information).
 
-### Request
-```sh
-curl "https://${PROOF_API_HOST}/api/buildings/1" \
-     -H 'Accept: application/json' \
-     -H "Authorization: Bearer ${PROOF_API_TOKEN}" \
-     -H 'Content-Type: application/json'
+```js
+axios({
+	method: 'GET',
+	url: `${PROOF_API_HOST}/api/buildings/1`,
+	headers: {
+		'Accept': 'application/json',
+		'Authorization': `Bearer ${PROOF_API_TOKEN}`,
+		'Content-Type': 'application/json',
+	},
+}).then(response => console.log(JSON.stringify(response.data, null, 2)))
 ```
-### Response
+
+<details>
+  <summary>Server Response</summary>
+
 Status code `200` - OK
 
 ```json
@@ -160,28 +185,37 @@ Status code `200` - OK
   }
 }
 ```
+</details>
 
 ## Creating a Building
 This endpoint creates a building in the current user's government (based on the API token).
 
-### Request
-```sh
-curl -X "POST" "https://${PROOF_API_HOST}/api/buildings" \
-     -H 'Accept: application/json' \
-     -H "Authorization: Bearer ${PROOF_API_TOKEN}" \
-     -H 'Content-Type: application/json' \
-     --data '{
-  "building": {
-	  "name": "Fort Belmont",
-	  "french_name": "Fort de la Montagne",
-	  "asset_identifier": "ASJWKEKGDP",
-	  "lobby_capacity": 180,
-	  "timezone_string": "America/Montreal"
+```js
+axios({
+	method: 'GET',
+	url: `${PROOF_API_HOST}/api/buildings`,
+	headers: {
+		'Accept': 'application/json',
+		'Authorization': `Bearer ${PROOF_API_TOKEN}`,
+		'Content-Type': 'application/json',
+	},
+	data: {
+	  "building": {
+		  "name": "Fort Belmont",
+		  "french_name": "Fort de la Montagne",
+		  "asset_identifier": "ASJWKEKGDP",
+		  "lobby_capacity": 180,
+		  "timezone_string": "America/Montreal"
+		}
 	}
-}'
+}).then(response => console.log(JSON.stringify(response.data, null, 2)))
 ```
-### Response
+<details>
+  <summary>Server Response</summary>
 
+ 
+
+</details>
 
 ```ruby
     api_buildings GET      /api/buildings(.:format)                                                                 api/buildings#index
