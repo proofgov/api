@@ -192,7 +192,7 @@ This endpoint creates a building in the current user's government (based on the 
 
 ```js
 axios({
-	method: 'GET',
+	method: 'POST',
 	url: `${PROOF_API_HOST}/api/buildings`,
 	headers: {
 		'Accept': 'application/json',
@@ -201,19 +201,67 @@ axios({
 	},
 	data: {
 	  "building": {
-		  "name": "Fort Belmont",
-		  "french_name": "Fort de la Montagne",
-		  "asset_identifier": "ASJWKEKGDP",
-		  "lobby_capacity": 180,
-		  "timezone_string": "America/Montreal"
+		  "name": "Fort Belmont 2",
+		  "frenchName": "Fort de la Montagne 2",
+		  "assetIdentifier": "ASJWKEKGDP",
+		  "lobbyCapacity": 180,
+		  "timezoneString": "America/Montreal"
 		}
 	}
-}).then(response => console.log(JSON.stringify(response.data, null, 2)))
+}).then(response => console.log(response))
 ```
 <details>
   <summary>Server Response</summary>
 
- 
+Status code `200` - OK
+
+```json
+{
+  "data": {
+    "id": 2,
+    "assetIdentifier": "ASJWKEKGDP",
+    "cacheKey": "buildings/2",
+    "closingTime": "20:00",
+    "displayKey": "2",
+    "errors": {},
+    "floors": [],
+    "frenchName": "Fort de la Montagne",
+    "lobbyCapacity": 180,
+    "name": "Fort Belmont",
+    "openingTime": "08:00",
+    "region": null,
+    "slug": "2",
+    "timezone": "America/Montreal",
+    "timezoneOffset": "-05:00"
+  },
+  "meta": {
+    "policy": {
+      "modelId": 2,
+      "modelType": "Building",
+      "userId": 4,
+      "authorized": true,
+      "create": true,
+      "update": true,
+      "destroy": true,
+      "show": true,
+      "export": true,
+      "new": true,
+      "edit": true,
+      "visibilityMode": 1,
+      "permittedAttributes": [
+        "name",
+        "french_name",
+        "asset_identifier",
+        "lobby_capacity",
+        "opening_time",
+        "closing_time",
+        "region",
+        "timezone_string"
+      ]
+    }
+  }
+}
+```
 
 </details>
 
