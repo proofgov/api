@@ -52,6 +52,7 @@ In both cases, we're writing these as interpolated shell variables to facilitate
 - [Users](users-endpoint.md)
 - [Routings](routings-endpoint.md)
 - [Forms](forms-endpoints.md)
+- [Building Access Appointments] (appointments-endpoints.md)
 
 ### Common requirements
 
