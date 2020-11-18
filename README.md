@@ -54,7 +54,7 @@ In both cases, we're writing these as interpolated shell variables to facilitate
 - [Forms](forms-endpoints.md)
 
 Return to Office
-- [Builidings](Return%20to%20Office/Buildings%20Endpoints.md)
+- [Buildings](Return%20to%20Office/Buildings%20Endpoints.md)
 - [BuildingAccessAppointments](Return%20to%20Office/Building%20Access%20Appointments.md)
 
 ### Common requirements
