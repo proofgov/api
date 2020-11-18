@@ -248,31 +248,33 @@ Code `200`
 }
 ```
 
-##### **Filtering Resutls**
+##### **Filtering Results**
 
 The following properties of the BuilidngAccessAppointments model currently support filtering:
 
 - `floor` : number
-- `building_id` : number
-- `start_at` : timestamp
-- `end_at` : timestamp
-- `user_id` : number
-- `cancelled_at` : timestamp
-- `updated_at` : timestamp
+- `buildingId` : number
+- `startAt` : timestamp
+- `endAt` : timestamp
+- `userId` : number
+- `cancelledAt` : timestamp
+- `updatedAt` : timestamp
 
 Supported operations:
--  between
--  ends_with
--  eq
--  gt
--  gte
--  ilike
--  in
--  lt
--  lte 
--  ne
--  starts_with'
--  
+
+- between
+- ends_with
+- eq
+- gt
+- gte
+- ilike
+- in
+- lt
+- lte
+- ne
+- starts_with'
+-
+
 Example(s):
 
 **All Appointments Updated AFTER a specific datetime**
@@ -281,61 +283,63 @@ Code `200`
 **Request**
 
 ```javascript
-var axios = require('axios');
+var axios = require('axios')
 
 var config = {
   method: 'get',
-  url: 'http://{API HOST}/api/building_access_appointments?filter[updatedAt][value]=2020-11-13T15:15:34.088Z&filter[updatedAt][operation]=gt',
-  headers: { 
-    'Authorization': 'Bearer {API TOKEN}',
-  }
-};
+  url:
+    'http://{API HOST}/api/building_access_appointments?filter[updatedAt][value]=2020-11-13T15:15:34.088Z&filter[updatedAt][operation]=gt',
+  headers: {
+    Authorization: 'Bearer {API TOKEN}',
+  },
+}
 
 axios(config)
-.then(function (response) {
-  console.log(JSON.stringify(response.data));
-})
-.catch(function (error) {
-  console.log(error);
-});
-
+  .then(function (response) {
+    console.log(JSON.stringify(response.data))
+  })
+  .catch(function (error) {
+    console.log(error)
+  })
 ```
 
 **Response**
 
 ```json
 {
-    "data": [
-        {
-            "id": 770,
-            "buildingId": 160,
-            "buildingName": "75 Jarvis St.",
-            "cacheKey": "building_access_appointments/770",
-            "displayKey": "770",
-            "duration": 120,
-            "endAt": "2020-11-12T13:00:00.000-0800",
-            "endTime": "13:00",
-            "errors": {},
-            "floor": "2",
-            "isCancelled": false,
-            "routingId": null,
-            "slug": "770",
-            "startAt": "2020-11-12T11:00:00.000-0800",
-            "startTime": "11:00",
-            "timezone": "America/Whitehorse",
-            "userId": 214
-        }
-    ],
-    "meta": {
-        "pagination": {
-            "currentPage": 1,
-            "totalPages": 1,
-            "totalCount": 1,
-            "perPage": 25
-        }
+  "data": [
+    {
+      "id": 770,
+      "buildingId": 160,
+      "buildingName": "75 Jarvis St.",
+      "cacheKey": "building_access_appointments/770",
+      "displayKey": "770",
+      "duration": 120,
+      "endAt": "2020-11-12T13:00:00.000-0800",
+      "endTime": "13:00",
+      "errors": {},
+      "floor": "2",
+      "isCancelled": false,
+      "routingId": null,
+      "slug": "770",
+      "startAt": "2020-11-12T11:00:00.000-0800",
+      "startTime": "11:00",
+      "timezone": "America/Whitehorse",
+      "userId": 214
     }
+  ],
+  "meta": {
+    "pagination": {
+      "currentPage": 1,
+      "totalPages": 1,
+      "totalCount": 1,
+      "perPage": 25
+    }
+  }
 }
 ```
+
+##### **Ordering Results**
 
 ---
 
@@ -358,24 +362,23 @@ axios(config)
 Code `200`
 
 ```javascript
-var axios = require('axios');
+var axios = require('axios')
 
 var config = {
   method: 'get',
   url: 'http://{API HOST}/api/building_access_appointments/770',
-  headers: { 
-    'Authorization': 'Bearer superadmin_api_token'
-  }
-};
+  headers: {
+    Authorization: 'Bearer superadmin_api_token',
+  },
+}
 
 axios(config)
-.then(function (response) {
-  console.log(JSON.stringify(response.data));
-})
-.catch(function (error) {
-  console.log(error);
-});
-
+  .then(function (response) {
+    console.log(JSON.stringify(response.data))
+  })
+  .catch(function (error) {
+    console.log(error)
+  })
 ```
 
 **Response**
@@ -385,60 +388,57 @@ axios(config)
 
 ```json
 {
-    "data": {
-        "id": 770,
-        "building": {
-            "id": 160,
-            "assetIdentifier": "jzjpjidziy",
-            "cacheKey": "buildings/160",
-            "closingTime": "20:00",
-            "displayKey": "160",
-            "errors": {},
-            "frenchName": "Doors of Durin 9",
-            "lobbyCapacity": 96,
-            "name": "75 Jarvis St.",
-            "openingTime": "08:00",
-            "region": null,
-            "slug": "160",
-            "timezone": "America/Whitehorse",
-            "timezoneOffset": "-08:00"
-        },
-        "buildingId": 160,
-        "buildingName": "75 Jarvis St.",
-        "cacheKey": "building_access_appointments/770",
-        "displayKey": "770",
-        "duration": 120,
-        "endAt": "2020-11-12T13:00:00.000-0800",
-        "endTime": "13:00",
-        "errors": {},
-        "floor": "2",
-        "isCancelled": false,
-        "routingId": null,
-        "slug": "770",
-        "startAt": "2020-11-12T11:00:00.000-0800",
-        "startTime": "11:00",
-        "timezone": "America/Whitehorse",
-        "userId": 214
+  "data": {
+    "id": 770,
+    "building": {
+      "id": 160,
+      "assetIdentifier": "jzjpjidziy",
+      "cacheKey": "buildings/160",
+      "closingTime": "20:00",
+      "displayKey": "160",
+      "errors": {},
+      "frenchName": "Doors of Durin 9",
+      "lobbyCapacity": 96,
+      "name": "75 Jarvis St.",
+      "openingTime": "08:00",
+      "region": null,
+      "slug": "160",
+      "timezone": "America/Whitehorse",
+      "timezoneOffset": "-08:00"
     },
-    "meta": {
-        "policy": {
-            "modelId": 770,
-            "modelType": "BuildingAccessAppointment",
-            "userId": 4,
-            "show": true,
-            "authorized": true,
-            "create": true,
-            "update": true,
-            "destroy": true,
-            "new": true,
-            "edit": true,
-            "export": true,
-            "visibilityMode": 1,
-            "permittedAttributes": [
-                "start_at",
-                "end_at"
-            ]
-        }
+    "buildingId": 160,
+    "buildingName": "75 Jarvis St.",
+    "cacheKey": "building_access_appointments/770",
+    "displayKey": "770",
+    "duration": 120,
+    "endAt": "2020-11-12T13:00:00.000-0800",
+    "endTime": "13:00",
+    "errors": {},
+    "floor": "2",
+    "isCancelled": false,
+    "routingId": null,
+    "slug": "770",
+    "startAt": "2020-11-12T11:00:00.000-0800",
+    "startTime": "11:00",
+    "timezone": "America/Whitehorse",
+    "userId": 214
+  },
+  "meta": {
+    "policy": {
+      "modelId": 770,
+      "modelType": "BuildingAccessAppointment",
+      "userId": 4,
+      "show": true,
+      "authorized": true,
+      "create": true,
+      "update": true,
+      "destroy": true,
+      "new": true,
+      "edit": true,
+      "export": true,
+      "visibilityMode": 1,
+      "permittedAttributes": ["start_at", "end_at"]
     }
+  }
 }
 ```
