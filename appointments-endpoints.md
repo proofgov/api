@@ -341,6 +341,154 @@ axios(config)
 
 ##### **Ordering Results**
 
+You may pass in an `order` field to order the results. For example, if you would like to update by `updated_at`, you would make a request to:
+
+`GET https://{API_HOST}/api/building_access_appointments?order=updated_at`
+
+### Examples
+
+##### **Ordering filtered appointments**
+
+**Request**
+
+```js
+var axios = require('axios')
+
+var config = {
+  method: 'get',
+  url:
+    'http://localhost:3000/api/building_access_appointments?filter[updatedAt][value]=2020-11-13T15:15:34.088Z&filter[updatedAt][operation]=lt&order=updated_at',
+  headers: {
+    Authorization: 'Bearer {API TOKEN}',
+  },
+}
+
+axios(config)
+  .then(function (response) {
+    console.log(JSON.stringify(response.data))
+  })
+  .catch(function (error) {
+    console.log(error)
+  })
+```
+
+**Response**
+
+```
+{
+    "data": [
+        {
+            "id": 765,
+            "buildingId": 160,
+            "buildingName": "75 Jarvis St.",
+            "cacheKey": "building_access_appointments/765",
+            "displayKey": "765",
+            "duration": 60,
+            "endAt": "2020-11-14T02:40:00.000-0800",
+            "endTime": "02:40",
+            "errors": {},
+            "floor": "10",
+            "isCancelled": false,
+            "routingId": null,
+            "slug": "765",
+            "startAt": "2020-11-14T01:40:00.000-0800",
+            "startTime": "01:40",
+            "timezone": "America/Whitehorse",
+            "updatedAt": "2020-11-13T14:59:16.866+0000",
+            "userId": 209
+        },
+        {
+            "id": 766,
+            "buildingId": 160,
+            "buildingName": "75 Jarvis St.",
+            "cacheKey": "building_access_appointments/766",
+            "displayKey": "766",
+            "duration": 120,
+            "endAt": "2020-11-14T07:20:00.000-0800",
+            "endTime": "07:20",
+            "errors": {},
+            "floor": "8",
+            "isCancelled": false,
+            "routingId": null,
+            "slug": "766",
+            "startAt": "2020-11-14T05:20:00.000-0800",
+            "startTime": "05:20",
+            "timezone": "America/Whitehorse",
+            "updatedAt": "2020-11-13T14:59:45.497+0000",
+            "userId": 210
+        },
+        {
+            "id": 767,
+            "buildingId": 160,
+            "buildingName": "75 Jarvis St.",
+            "cacheKey": "building_access_appointments/767",
+            "displayKey": "767",
+            "duration": 60,
+            "endAt": "2020-11-12T17:30:00.000-0800",
+            "endTime": "17:30",
+            "errors": {},
+            "floor": "6",
+            "isCancelled": false,
+            "routingId": null,
+            "slug": "767",
+            "startAt": "2020-11-12T16:30:00.000-0800",
+            "startTime": "16:30",
+            "timezone": "America/Whitehorse",
+            "updatedAt": "2020-11-13T14:59:46.758+0000",
+            "userId": 211
+        },
+        {
+            "id": 768,
+            "buildingId": 160,
+            "buildingName": "75 Jarvis St.",
+            "cacheKey": "building_access_appointments/768",
+            "displayKey": "768",
+            "duration": 60,
+            "endAt": "2020-11-12T13:10:00.000-0800",
+            "endTime": "13:10",
+            "errors": {},
+            "floor": "4",
+            "isCancelled": false,
+            "routingId": null,
+            "slug": "768",
+            "startAt": "2020-11-12T12:10:00.000-0800",
+            "startTime": "12:10",
+            "timezone": "America/Whitehorse",
+            "updatedAt": "2020-11-13T14:59:47.506+0000",
+            "userId": 212
+        },
+        {
+            "id": 769,
+            "buildingId": 160,
+            "buildingName": "75 Jarvis St.",
+            "cacheKey": "building_access_appointments/769",
+            "displayKey": "769",
+            "duration": 120,
+            "endAt": "2020-11-12T20:40:00.000-0800",
+            "endTime": "20:40",
+            "errors": {},
+            "floor": "3",
+            "isCancelled": false,
+            "routingId": null,
+            "slug": "769",
+            "startAt": "2020-11-12T18:40:00.000-0800",
+            "startTime": "18:40",
+            "timezone": "America/Whitehorse",
+            "updatedAt": "2020-11-13T14:59:48.251+0000",
+            "userId": 213
+        }
+    ],
+    "meta": {
+        "pagination": {
+            "currentPage": 1,
+            "totalPages": 1,
+            "totalCount": 5,
+            "perPage": 25
+        }
+    }
+}
+```
+
 ---
 
 ## GET /api/building_access_appointments/{id}
@@ -368,7 +516,7 @@ var config = {
   method: 'get',
   url: 'http://{API HOST}/api/building_access_appointments/770',
   headers: {
-    Authorization: 'Bearer superadmin_api_token',
+    Authorization: 'Bearer {API TOKEN}',
   },
 }
 
