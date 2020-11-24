@@ -53,6 +53,10 @@ In both cases, we're writing these as interpolated shell variables to facilitate
 - [Routings](routings-endpoint.md)
 - [Forms](forms-endpoints.md)
 
+Return to Office
+- [Buildings](Return%20to%20Office/Buildings%20Endpoints.md)
+- [BuildingAccessAppointments](Return%20to%20Office/Building%20Access%20Appointments.md)
+
 ### Common requirements
 
 All requests must contain headers:
