@@ -9,39 +9,6 @@ PROOF_API_HOST = process.env.PROOF_API_HOST
 PROOF_API_TOKEN = process.env.PROOF_API_TOKEN
 ```
 
-## POST: Creating a Building Access Appointment
-
-This endpoint creates a building access appointment (appointment) in the current user's government (based on the API token).
-
-**Currently not supported**
-<details>
-  <summary>will look something like this</summary>
-
-
-```js
-axios({
-  method: 'POST',
-  url: `${PROOF_API_HOST}/api/building_access_appointments`,
-  headers: {
-    'Accept': 'application/json',
-    'Authorization': `Bearer ${PROOF_API_TOKEN}`,
-    'Content-Type': 'application/json',
-  },
-  data: {
-    "building_access_appointment": {
-      'building_id': '<integer not null>',
-      'floor': '<string/integer? not null>',
-      'end_at': '<datetime not null>',
-      'start_at': '<datetime not null>',
-      'user_id': '<integer not null>',
-      'recurring_appointment_profile_id': '<integer>',
-      'routing_id': '<integer',
-    }
-  }
-}).then(response => console.log(JSON.stringify(response.data, null, 2)))
-```
-</details>
-
 ## GET: Fetch BuildingAccessAppointments
 ### Fetch All BuildingAccessAppointments
 This allows you to see all appointments in the system (that your user has access to).
