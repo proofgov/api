@@ -186,7 +186,7 @@ Status Code `200` - OK
 </details>
 
 # DELETE - Cancel a BuildingAccessAppointment
-This endpoint allows you to cancel an appointment. Note that you can only cancel appointments that haven't happend yet.
+This endpoint allows you to cancel an appointment. You'll need to be the owner of the appointment or an administrator
 
 ```js
 axios({
