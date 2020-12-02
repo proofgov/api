@@ -104,6 +104,232 @@ Status Code `200` - OK
 ```
 </details>
 
+### Filtering All BuildingAccessAppointments
+
+The following properties of the BuilidngAccessAppointments model currently support filtering:
+
+- `floor` : number
+- `buildingId` : number
+- `startAt` : timestamp
+- `endAt` : timestamp
+- `userId` : number
+- `cancelledAt` : timestamp
+- `updatedAt` : timestamp
+
+Supported operations:
+
+- between
+- ends_with
+- eq
+- gt
+- gte
+- ilike
+- in
+- lt
+- lte
+- ne
+- starts_with'
+
+Example(s)
+
+**All Appointments Updated AFTER a specific datetime**
+```js
+axios({
+  method: 'GET',
+  url: `${PROOF_API_HOST}/api/building_access_appointments?filter[updatedAt][value]=2020-11-13T15:15:34.088Z&filter[updatedAt][operation]=gt`,
+  headers: {
+    'Accept': 'application/json',
+    'Authorization': `Bearer ${PROOF_API_TOKEN}`,
+    'Content-Type': 'application/json',
+  },
+}).then(response => console.log(JSON.stringify(response.data, null, 2)))
+```
+
+<details>
+  <summary>Server Response</summary>
+
+Status Code `200` - OK
+
+```json
+{
+  "data": [
+    {
+      "id": 770,
+      "buildingId": 160,
+      "buildingName": "75 Jarvis St.",
+      "cacheKey": "building_access_appointments/770",
+      "displayKey": "770",
+      "duration": 120,
+      "endAt": "2020-11-12T13:00:00.000-0800",
+      "endTime": "13:00",
+      "errors": {},
+      "floor": "2",
+      "isCancelled": false,
+      "routingId": null,
+      "slug": "770",
+      "startAt": "2020-11-12T11:00:00.000-0800",
+      "startTime": "11:00",
+      "timezone": "America/Whitehorse",
+      "userId": 214
+    }
+  ],
+  "meta": {
+    "pagination": {
+      "currentPage": 1,
+      "totalPages": 1,
+      "totalCount": 1,
+      "perPage": 25
+    }
+  }
+}
+```
+
+</details>
+
+
+###  Ordering
+
+You may pass in an `order` field to order the results. For example, if you would like to update by `updated_at`, you would make a request to:
+
+`GET https://{API_HOST}/api/building_access_appointments?order=updated_at`
+
+Example(s)
+
+**Ordering filtered appointments**
+
+```
+axios({
+  method: 'GET',
+  url: `${PROOF_API_HOST}/api/building_access_appointments?filter[updatedAt][value]=2020-11-13T15:15:34.088Z&filter[updatedAt][operation]=lt&order=updated_at'`,
+  headers: {
+    'Accept': 'application/json',
+    'Authorization': `Bearer ${PROOF_API_TOKEN}`,
+    'Content-Type': 'application/json',
+  },
+}).then(response => console.log(JSON.stringify(response.data, null, 2)))
+```
+
+<details>
+  <summary>Server Response</summary>
+
+Status Code `200` - OK
+```json
+{
+    "data": [
+        {
+            "id": 765,
+            "buildingId": 160,
+            "buildingName": "75 Jarvis St.",
+            "cacheKey": "building_access_appointments/765",
+            "displayKey": "765",
+            "duration": 60,
+            "endAt": "2020-11-14T02:40:00.000-0800",
+            "endTime": "02:40",
+            "errors": {},
+            "floor": "10",
+            "isCancelled": false,
+            "routingId": null,
+            "slug": "765",
+            "startAt": "2020-11-14T01:40:00.000-0800",
+            "startTime": "01:40",
+            "timezone": "America/Whitehorse",
+            "updatedAt": "2020-11-13T14:59:16.866+0000",
+            "userId": 209
+        },
+        {
+            "id": 766,
+            "buildingId": 160,
+            "buildingName": "75 Jarvis St.",
+            "cacheKey": "building_access_appointments/766",
+            "displayKey": "766",
+            "duration": 120,
+            "endAt": "2020-11-14T07:20:00.000-0800",
+            "endTime": "07:20",
+            "errors": {},
+            "floor": "8",
+            "isCancelled": false,
+            "routingId": null,
+            "slug": "766",
+            "startAt": "2020-11-14T05:20:00.000-0800",
+            "startTime": "05:20",
+            "timezone": "America/Whitehorse",
+            "updatedAt": "2020-11-13T14:59:45.497+0000",
+            "userId": 210
+        },
+        {
+            "id": 767,
+            "buildingId": 160,
+            "buildingName": "75 Jarvis St.",
+            "cacheKey": "building_access_appointments/767",
+            "displayKey": "767",
+            "duration": 60,
+            "endAt": "2020-11-12T17:30:00.000-0800",
+            "endTime": "17:30",
+            "errors": {},
+            "floor": "6",
+            "isCancelled": false,
+            "routingId": null,
+            "slug": "767",
+            "startAt": "2020-11-12T16:30:00.000-0800",
+            "startTime": "16:30",
+            "timezone": "America/Whitehorse",
+            "updatedAt": "2020-11-13T14:59:46.758+0000",
+            "userId": 211
+        },
+        {
+            "id": 768,
+            "buildingId": 160,
+            "buildingName": "75 Jarvis St.",
+            "cacheKey": "building_access_appointments/768",
+            "displayKey": "768",
+            "duration": 60,
+            "endAt": "2020-11-12T13:10:00.000-0800",
+            "endTime": "13:10",
+            "errors": {},
+            "floor": "4",
+            "isCancelled": false,
+            "routingId": null,
+            "slug": "768",
+            "startAt": "2020-11-12T12:10:00.000-0800",
+            "startTime": "12:10",
+            "timezone": "America/Whitehorse",
+            "updatedAt": "2020-11-13T14:59:47.506+0000",
+            "userId": 212
+        },
+        {
+            "id": 769,
+            "buildingId": 160,
+            "buildingName": "75 Jarvis St.",
+            "cacheKey": "building_access_appointments/769",
+            "displayKey": "769",
+            "duration": 120,
+            "endAt": "2020-11-12T20:40:00.000-0800",
+            "endTime": "20:40",
+            "errors": {},
+            "floor": "3",
+            "isCancelled": false,
+            "routingId": null,
+            "slug": "769",
+            "startAt": "2020-11-12T18:40:00.000-0800",
+            "startTime": "18:40",
+            "timezone": "America/Whitehorse",
+            "updatedAt": "2020-11-13T14:59:48.251+0000",
+            "userId": 213
+        }
+    ],
+    "meta": {
+        "pagination": {
+            "currentPage": 1,
+            "totalPages": 1,
+            "totalCount": 5,
+            "perPage": 25
+        }
+    }
+}
+```
+</details>
+
+
 ### Fetch a BuildingAccessAppointment
 This endpoint allows you to fetch a single appointment in more detail than provided by a bulk fetch.
 
