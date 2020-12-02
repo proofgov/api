@@ -104,9 +104,9 @@ Status Code `200` - OK
 ```
 </details>
 
-### Filtering All BuildingAccessAppointments
+### Filtering BuildingAccessAppointments
 
-The following properties of the BuilidngAccessAppointments model currently support filtering:
+The following properties of the BuildingAccessAppoinment model currently support filtering:
 
 - `floor` : number
 - `buildingId` : number
@@ -128,7 +128,7 @@ Supported operations:
 - lt
 - lte
 - ne
-- starts_with'
+- starts_with
 
 Example(s)
 
@@ -189,13 +189,13 @@ Status Code `200` - OK
 
 ###  Ordering
 
-You may pass in an `order` field to order the results. For example, if you would like to update by `updated_at`, you would make a request to:
+You may pass in an `order` field to order the results. For example, if you would like to order by `updated_at`, you would make a request to:
 
 `GET https://{API_HOST}/api/building_access_appointments?order=updated_at`
 
 Example(s)
 
-**Ordering filtered appointments**
+**Ordering Filtered Appointments**
 
 ```
 axios({
