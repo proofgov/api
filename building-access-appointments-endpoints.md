@@ -197,7 +197,7 @@ Example(s)
 
 **Ordering Filtered Appointments**
 
-```
+```js
 axios({
   method: 'GET',
   url: `${PROOF_API_HOST}/api/building_access_appointments?filter[updatedAt][value]=2020-11-13T15:15:34.088Z&filter[updatedAt][operation]=lt&order=updated_at'`,
