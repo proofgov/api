@@ -1,18 +1,45 @@
 # Proof's REST/HTTP/JSON API documentation
 
 ## Pre-requisites
-
 Readers of this document will need to have an account at an instance of the Proof platform (e.g. app.proofgov.com)
 
-## API Token Generation
+## Endpoints
 
-Today an api token can be generated for any user account and this process is self-serve:
+- [Users](users-endpoint.md)
+- [Routings](routings-endpoint.md)
+- [Forms](forms-endpoints.md)
+
+Return to Office
+- [Buildings](buildings-endpoints.md)
+- [Building Access Appointments](building-access-appointments-endpoints.md)
+
+## Example Applications
+
+### Concerning Form Submissions
+
+- [A basic example, downsampling implements some custom access control](https://github.com/proofgov/example-form-query-api)
+- [A rate-limiting application](https://github.com/proofgov/example-app-capacity-management)
+
+## Notes
+
+1. In this documentation, `${API_TOKEN}` is meant to refer to the token provided by Proof for your integration.
+2. We use `${API_HOST}` to refer to the hostname of the Proof instance you're meaning to interact with. For most users, this will be app.proofgov.com. For users of special single-tenant installs, this should the hostname you would visit in your browser (e.g. trac.ynet.gov.yk.ca).
+
+In both cases, we're writing these as interpolated shell variables to facilitate copying and pasting snippets directly into a shell session.
+
+## Requirements common to all endpoints
+
+### Authentication
+
+All requests must present a valid Api token in the `Authorization` header.
+
+Today an api token can be generated for any user account through the web-app:
 
 1. Log into the app.
 2. Go to your profile page and enabled the Developer Tools option.
 3. Click on the API Token link under Developer Tools.
 
-### Token invalidation
+#### Api Token invalidation
 Token can be invalidated with an HTTP request with method DELETE at the correctly targetted URL, namely `/self-serve/api-tokens/<id>`
 
 e.g.
@@ -31,33 +58,10 @@ curl \
 
 Note the _id_ of the token is different than the token itself (and can be determined from /self serve link).
 
+#### Token Limitations
 At this time, only one api token can be issued for a single user account. There are a few work-arounds in-place - reach out to a technical contact or account manager for details.
 
-## Example Applications
-
-### Concerning Form Submissions
-
-- [A basic example, downsampling implements some custom access control](https://github.com/proofgov/example-form-query-api)
-- [A rate-limiting application](https://github.com/proofgov/example-app-capacity-management)
-
-## Notes
-
-1. In this documentation, `${API_TOKEN}` is meant to refer to the token provided by Proof for your integration.
-2. We use `${API_HOST}` to refer to the hostname of the Proof instance you're meaning to interact with. For most users, this will be app.proofgov.com. For users of special single-tenant installs, this should the hostname you would visit in your browser (e.g. trac.ynet.gov.yk.ca).
-
-In both cases, we're writing these as interpolated shell variables to facilitate copying and pasting snippets directly into a shell session.
-
-## Endpoints
-
-- [Users](users-endpoint.md)
-- [Routings](routings-endpoint.md)
-- [Forms](forms-endpoints.md)
-
-Return to Office
-- [Buildings](buildings-endpoints.md)
-- [Building Access Appointments](building-access-appointments-endpoints.md)
-
-### Common requirements
+### Headers
 
 All requests must contain headers:
 
@@ -74,8 +78,6 @@ Endpoints that return multiple records will do so in pages.
 No more than 1k records will be returned on any request;
 larger values of `per_page` will be ignored
 
-#### Formatting
-
-##### Dates
+### Date formatting
 
 All dates sent to and returned from the system will be formatted as `YYYY-MM-DD`.
