@@ -1,0 +1,1 @@
+Swagger definitions in this folder can also be found at https://app.swaggerhub.com/apis/proofgov
