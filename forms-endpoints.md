@@ -39,8 +39,6 @@ For forms built using [Drupal's WebForm](https://www.drupal.org/project/webform)
 * [Debug a submission](#submission-debug-endpoint)
     - [Example Response](#example-response)
 
-
-
 ## Submit a form 
 
 Form submission endpoints take the form
@@ -92,6 +90,30 @@ __Supported Query Types:__
  Currently default is starts_with (for most cases)
 
 __Supported Data Type__
+
+The value of `type` is one of the following:
+* `BOOLEAN`
+* `DATE`
+* `DOUBLE`
+* `INTEGER`
+* `MONEY`
+* `TEXT`
+* `VARCHAR`
+
+This is a subset of the postgres data types and is used to interpret the JSON values across all submissions.
+
+Why the Api accepts this type modulation may be unclear.
+
+Readers will be aware that
+* the submissions themselves are JSON, so the keys are constrained to be JSON objects
+* the form schema could define a stricter set of type valdiations that apply to the key
+
+A few reasons to support this type modulation today include:
+* A form's schema is expected to have revisions, some of which may change the type of a question. While we consider it a best-practice to _not_ repurpose an existing question/binding when the type changes, we don't check schemas, upon import, for this kind of consistency across versions to avoid placing this constraint upon form providers.
+* The proof application uses the schema to prevent humans from inputting values that deviate from the schema, however when we receive a form submission POSTed to us via API, we do not confirm that the data conforms with the matching schema (if it exists).
+
+We do envision a future state where this type modulation is phased out in favour of stricter type checking across schema versions and upon data POST, but don't have a timeline for this change.
+
 _See the form schema for a details_
 
 ```json 
