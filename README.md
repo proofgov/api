@@ -50,7 +50,7 @@ API_TOKEN_ID_TO_DELETE=3
 
 curl \
   -X DELETE \
-  "http://app.proofgov.com/self-serve/api-tokens/${API_TOKEN_ID_TO_DELETE}" \
+  "http://app.proofgov.com/api/tokens/${API_TOKEN_ID_TO_DELETE}" \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer ${API_TOKEN}"
