@@ -1,0 +1,15 @@
+{
+  "private_file": {
+    "#type": "managed_file",
+    "#title": "Private file",
+    "#description": "Private file. Not sure how access to this will be managed."
+  },
+  "aws_files": {
+    "#type": "managed_file",
+    "#title": "AWS file(s)",
+    "#multiple": true,
+    "#description": "These files will live in AWS. Access is typically via a time-limited signed URL.",
+    "#uri_scheme": "s3",
+    "#upload_location": "s3://webform/[webform:id]/[current-date:html_date]/[webform_submission:uuid]"
+  }
+}
