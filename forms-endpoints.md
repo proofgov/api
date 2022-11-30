@@ -33,13 +33,117 @@ For forms built using [Drupal's WebForm](https://www.drupal.org/project/webform)
 
 ## Endpoints
 
+* [Create a Form Config](#form-configs---creating-a-form-config)
 * [Submit a form](#submit-a-form)
 * [Form submission data](#form-submission-data)
 * [Inspect a Schema](#inspect-a-schema)
 * [Debug a submission](#submission-debug-endpoint)
     - [Example Response](#example-response)
 
-## Submit a form 
+## Form Configs
+
+### Form Configs - Creating a form config
+
+This allows you to create a new form configuration as a site admin.
+```sh
+curl -X "POST" "${PROOF_API_HOST}/api/forms" \
+     -H 'Accept: application/json' \
+     -H "Authorization: Bearer ${PROOF_API_TOKEN}" \
+     -H 'Content-Type: application/json' \
+     -d '{
+  "form_config": {
+      "provider": "drupal_webform",
+      "provider_identifier": "some-provider-identifier"
+  }
+}'
+```
+
+If you wish to create a form config as a Unit admin you need to supply the unit_id during creation.
+```sh
+curl -X "POST" "${PROOF_API_HOST}/api/forms" \
+     -H 'Accept: application/json' \
+     -H "Authorization: Bearer ${PROOF_API_TOKEN}" \
+     -H 'Content-Type: application/json' \
+     -d '{
+  "form_config": {
+      "provider": "drupal_webform",
+      "provider_identifier": "some-provider-identifier"
+      "unit_id": 3
+  }
+}'
+```
+
+<details>
+  <summary>Server Response</summary>
+
+Status code `201` - Created
+
+```json
+{
+  "data":
+  {
+    "cacheKey": "form_configs/1",
+    "errors":
+    {},
+    "externalIntakeUrl": null,
+    "formHeroIdentifier": null,
+    "formHeroPostSubmitWebhooks":
+    [],
+    "hasCreateLink": false,
+    "id": 1,
+    "internalIntakeUrl": null,
+    "logs":
+    [],
+    "provider": "drupal_webform",
+    "providerIdentifier": "some-provider-identifier",
+    "routingCustomizationFlow":
+    [
+      "FormSubmissions::CreateAndLinkParentRoutingFlow",
+      [
+        {}
+      ],
+      {}
+    ],
+    "slug": "1",
+    "tableDisplayKeys":
+    [],
+    "webhookUrl": null
+  },
+  "meta":
+  {
+    "policy":
+    {
+      "authorized": true,
+      "create": true,
+      "destroy": true,
+      "edit": true,
+      "export": true,
+      "exportAllSubmissions": true,
+      "modelId": 1,
+      "modelType": "FormConfig",
+      "new": true,
+      "permittedAttributes":
+      [
+        "provider",
+        "provider_identifier",
+        "unit_id"
+      ],
+      "querySubmissions": true,
+      "show": true,
+      "showAnalytics": true,
+      "submit": true,
+      "update": true,
+      "updateFlow": true,
+      "userId": 4,
+      "visibilityMode": 1
+    }
+  }
+}
+```
+</details>
+
+
+## Submit a form
 
 Form submission endpoints take the form
 
@@ -48,7 +152,7 @@ Form submission endpoints take the form
 At least one of `provider` or `form_config_id` must be present.
 If `provider` and `form_config_id` are set, they must match.
 
-### Examples: 
+### Examples:
 
 * `POST /forms/drupal-webform/submit`
 * `POST /forms/drupal-webform/:form_config_id/submit` <- doesn't exist yet, but should
